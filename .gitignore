@@ -9,3 +9,6 @@
 
 # vim-swapfiles
 .*.sw*
+
+# apikey is private
+apikey

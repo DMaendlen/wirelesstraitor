@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
-from sigint import DeviceBssidMatcher
 from requests import post
-from json import dumps
+from simplejson import dumps
+from multiprocess import Process
+
+from wireless_traitor.sigint import DeviceBssidMatcher
 
 class LocationSearcher(Process):
     """Looks up the GPS-coordinates of an AP"""
@@ -15,7 +17,7 @@ class LocationSearcher(Process):
         with open('apikey') as f:
             self.key = f.read()
         
-        self.parameters = {'key': key}
+        self.parameters = {'key': self.key}
         self.url = 'https://www.googleapis.com/geolocation/v1/geolocate'
 
         self.locations = {}
@@ -25,7 +27,7 @@ class LocationSearcher(Process):
         self.matcher.start()
         self.get_location(self.matcher.devices)
     
-    def get_location(devices):
+    def get_location(self, devices):
         """Requests GPS-coordinates from Google's Geolocation db"""
 
         request = {'considerIp': 'false'}

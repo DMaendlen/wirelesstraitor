@@ -2,10 +2,10 @@
 
 from unittest import TestCase
 from unittest import makeSuite
-from sigint import DeviceBssidMatcher
 from scapy.all import Packet
+from wireless_traitor.sigint import DeviceBssidMatcher
 
-class DeviceBssidMatcherTestCase(unittest.TestCase):
+class DeviceBssidMatcherTestCase(TestCase):
 
     def setUp(self):
         """Create an instance of DeviceBssidMatcher and a probe request package containing an obvious BSSID, SSID and MAC-Addr"""
@@ -33,7 +33,7 @@ class DeviceBssidMatcherTestCase(unittest.TestCase):
         self.matcher.find_probe_request(self.proberequest)
         assert 'random' not in matcher.devices[self.src]['bssids'], "random in devices"
 
-sigintsuite = unittest.makeSuite(DeviceBssidMatcherTestCase, 'test')
+sigintsuite = makeSuite(DeviceBssidMatcherTestCase, 'test')
 
 #class SigintTestSuite(unittest.TestSuite):
 #    """Testsuite to make sure sigint works"""

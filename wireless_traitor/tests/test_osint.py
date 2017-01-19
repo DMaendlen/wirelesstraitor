@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
-import unittest
+from unittest import TestCase
+from unittest import makeSuite
 
-from osint import LocationSearcher
+from wireless_traitor.osint import LocationSearcher
 
-class LocationSearcherTestCase(unittest.TestCase):
+class LocationSearcherTestCase(TestCase):
     """Test case to test LocationSearcher by sending defined requests to the API"""
 
     def setUp(self):
@@ -27,7 +28,7 @@ class LocationSearcherTestCase(unittest.TestCase):
         self.searcher.get_location(self.devices)
         assert self.searcher.locations[self.src]['location']['lng'] == 8.6821267
 
-osintsuite = unittest.makeSuite(LocationSearcherTestCase, 'test')
+osintsuite = makeSuite(LocationSearcherTestCase, 'test')
 
 #class OsintTestSuite(unittest.TestSuite):
 #
