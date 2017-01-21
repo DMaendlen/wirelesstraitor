@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='wirelesstraitor',
-      version='0.4',
+      version='0.5',
       description='Little tool to grab geolocations from probe requests',
       url='https://github.com/dmaendlen/wireless-traitor',
       author='David Mändlen',
