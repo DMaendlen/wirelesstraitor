@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from unittest import TestCase
 from unittest import makeSuite
 

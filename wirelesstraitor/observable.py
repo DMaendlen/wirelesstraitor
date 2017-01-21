@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 class Observable(object):
 
     def __init__(self):

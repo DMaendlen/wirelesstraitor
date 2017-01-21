@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from collections import defaultdict
 from requests import post
 from simplejson import dumps

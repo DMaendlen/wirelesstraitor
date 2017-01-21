@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from wirelesstraitor.observer import Observer
 
 class CommandLineLocationDisplay(Observer):

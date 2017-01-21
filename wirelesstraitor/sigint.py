@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from multiprocessing import Process
 
 from wirelesstraitor.observable import Observable
