@@ -20,7 +20,7 @@ class CommandLineLocationDisplay(Observer):
     def display_location(self, mac, bssid, lat, lng):
         """Take json-formatted location and print it together with mac"""
 
-        print("Device {mac} used {bssid} at location {lat}, {lng}".format(
+        print("Device {mac} has seen {bssid} at location {lat}, {lng}".format(
                     mac = mac,
                     bssid = bssid,
                     lat = lat,

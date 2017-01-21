@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+from wirelesstraitor.display import CommandLineLocationDisplay
+from wirelesstraitor.mockup import PacketMockup
+from wirelesstraitor.osint import LocationSearcher
+from wirelesstraitor.sigint import ProbeRequestParser
+
+display = CommandLineLocationDisplay()
+mockup = PacketMockup()
+searcher = LocationSearcher()
+parser = ProbeRequestParser()
+
+parser.observable.register(searcher)
+searcher.observable.register(display)
+
+parser.update(mockup.mockHse())
