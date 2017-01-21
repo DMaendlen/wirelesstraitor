@@ -53,7 +53,7 @@ class LocationSearcher(Observer):
                       'signalStrength': -10,
                       'signalToNoiseRatio': 0
                      }
-                request = {'considerIp': false, 'wifiAccessPoints': [ap]}
+                request = {'considerIp': 'false', 'wifiAccessPoints': [ap]}
                 response = post(self.url, json = request, params = self.parameters)
                 location = response.json()['location']
                 bssid_location = [bssid, ssid, location]
