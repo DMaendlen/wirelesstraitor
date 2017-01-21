@@ -15,6 +15,7 @@ setup(name='wirelesstraitor',
         'multiprocess',
       ],
       scripts = [
+        'bin/wirelesstraitor-cli',
         'bin/wirelesstraitor-mock',
       ],
       zip_safe=False,

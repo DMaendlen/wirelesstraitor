@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+from wirelesstraitor.display import CommandLineLocationDisplay
+from wirelesstraitor.osint import LocationSearcher
+from wirelesstraitor.sigint import ProbeRequestFinder, ProbeRequestParser
+
+proberequestfinder = ProbeRequestFinder()
+proberequestparser = ProbeRequestParser()
+locationsearcher = LocationSearcher()
+commandlinedisplay = CommandLineLocationDisplay()
+
+proberequestfinder.observable.register(proberequestparser)
+proberequestparser.observable.register(locationsearcher)
+locationsearhcer.observable.register(commandlinedisplay)
+
+proberequestfinder.start()
