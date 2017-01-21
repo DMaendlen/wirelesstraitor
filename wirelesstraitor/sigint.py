@@ -56,14 +56,13 @@ class ProbeRequestParser(Observer):
         mac = pkt.addr2
 
         if mac not in self.device_data.keys():
-            self.device_data[mac] = {'bssids': set(),
-                                'ssids': set()}
+            self.device_data[mac] = []
 
+        assert pkt.info is not None
         assert pkt.addr3 is not None
         if pkt.addr3 != '' and pkt.addr3.upper() != "FF:FF:FF:FF:FF:FF":
-            self.device_data[mac]['bssids'].add(pkt.addr3)
+            self.device_data[mac].append({pkt.addr3: pkt.info.decode('utf-8')})
+            assert self.device_data[mac] is not None
 
-        assert pkt.info is not None, "SSID is None, packet was broken. See packet {pkt}".format(pkt = str(pkt))
-        self.device_data[mac]['ssids'].add(pkt.info.decode('utf-8'))
 
         return mac, self.device_data[mac]

@@ -29,11 +29,11 @@ class LocationSearcher(Observer):
             parse it and throw mac, response.json() to Observers
         """
 
-        self.observable.update_observers(self.get_locations(payload = args[0]))
+        self.observable.update_observers(self.get_location(payload = args[0]))
 
-    def get_locations(self, payload):
+    def get_location(self, payload):
         """Looks up location for each bssid in data, return mac and
-            bssid_location, a dict containing (bssid: location)
+            bssid_location, a list containing (bssid, ssid, location)
         """
 
         mac = payload[0]
@@ -41,21 +41,22 @@ class LocationSearcher(Observer):
 
         assert mac is not None
         assert data is not None
-        assert isinstance(data, dict)
+        assert isinstance(data, list), "data: {type_}, {data}".format(type_ = type(data), data = data)
 
         if mac not in self.locations.keys():
             self.locations[mac] = {}
 
-        assert isinstance(data['bssids'], set)
-        for bssid in data['bssids']:
-            ap = {'macAddress': bssid,
-                'signalStrength': -10,
-                'signalToNoiseRatio': 0
-            }
-            request = {'wifiAccessPoints': [ap]}
-            response = post(self.url, json = request, params = self.parameters)
-            location = response.json()['location']
-            bssid_location = [bssid, location]
-            self.locations[mac] = bssid_location
+        for seen_dict in data:
+            assert isinstance(seen_dict, dict)
+            for bssid, ssid in seen_dict.items():
+                ap = {'macAddress': bssid,
+                      'signalStrength': -10,
+                      'signalToNoiseRatio': 0
+                     }
+                request = {'wifiAccessPoints': [ap]}
+                response = post(self.url, json = request, params = self.parameters)
+                location = response.json()['location']
+                bssid_location = [bssid, ssid, location]
+                self.locations[mac] = bssid_location
 
         return mac, self.locations[mac]

@@ -78,8 +78,8 @@ class ProbeRequestParserTestCase(TestCase):
         mac, device_data = self.parser.parse_probe_request(self.proberequest)
         assert mac is not None
         assert device_data is not None
-        assert device_data['ssids'].pop() == self.ssid_raw
-        assert device_data['bssids'].pop() == self.bssid
+        assert self.bssid in device_data[0]
+        assert device_data[0][self.bssid] == self.ssid_raw
 
     def test_update(self):
         self.parser.update(self.proberequest)
@@ -88,12 +88,11 @@ class ProbeRequestParserTestCase(TestCase):
 
         mac = self.observer.mac
         device_data = self.observer.device_data
-        ssid = device_data['ssids'].pop()
-        bssid = device_data['bssids'].pop()
+        assert self.bssid in device_data[0]
+        ssid = device_data[0][self.bssid]
 
         assert mac == self.mac
         assert ssid == self.ssid_raw
-        assert bssid == self.bssid
 
 sigintsuite = makeSuite(ProbeRequestFinderTestCase, 'test')
 sigintsuite.addTest(makeSuite(ProbeRequestParserTestCase, 'test'))
