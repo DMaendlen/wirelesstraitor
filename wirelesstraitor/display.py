@@ -16,9 +16,9 @@ class CommandLineLocationDisplay(Observer):
         lat = location['lat']
         lng = location['lng']
 
-        self.display_location(mac = mac, bssid = bssid, lat = lat, lng = lng)
+        self.display_location(mac = mac, bssid = bssid, ssid = ssid, lat = lat, lng = lng)
 
-    def display_location(self, mac, bssid, lat, lng):
+    def display_location(self, mac, bssid, ssid, lat, lng):
         """Take json-formatted location and print it together with mac"""
 
         print("Device {mac} has seen {ssid} ({bssid}) at location {lat}, {lng}".format(
