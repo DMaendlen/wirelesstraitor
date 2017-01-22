@@ -55,7 +55,18 @@ class LocationSearcher(Observer):
                      }
                 request = {'considerIp': 'false', 'wifiAccessPoints': [ap]}
                 response = post(self.url, json = request, params = self.parameters)
-                location = response.json()['location']
+
+                if response.status_code == 200:
+                    location = response.json()['location']
+                elif response.status_code == 404:
+                    location = {'lat': 'not known', 'lng': 'not known'}
+                elif response.status_code == 403:
+                    location = {'lat': 'daily limit or', 'lng': 'user rate limit exceeded'}
+                elif response.status_code == 400:
+                    location = {'lat': 'key invalid or', 'lng': 'parse error'}
+                else:
+                    raise Exception('Something went wrong. Statuscode: {code}, dump: {dump}'.format(code = response.status_code, dump = response.json()))
+
                 bssid_location = [bssid, ssid, location]
                 self.locations[mac] = bssid_location
 
