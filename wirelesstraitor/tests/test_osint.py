@@ -42,8 +42,9 @@ class LocationSearcherTestCase(TestCase):
         location = device_location[2]
         assert mac == self.mac
         assert ssid == self.raw_ssid
-        assert location['lat'] == 50.110922099999996
-        assert location['lng'] == 8.6821267
+        assert isinstance(location, dict)
+        assert 'lat' in location.keys()
+        assert 'lng' in location.keys()
 
     def test_update(self):
         self.searcher.update(self.devices)
@@ -55,7 +56,8 @@ class LocationSearcherTestCase(TestCase):
         device_location = self.observer.device_location
         assert mac == self.mac
         assert ssid == self.raw_ssid
-        assert device_location['lat'] == 50.110922099999996
-        assert device_location['lng'] == 8.6821267
+        assert isinstance(device_location, dict)
+        assert 'lat' in device_location.keys()
+        assert 'lng' in device_location.keys()
 
 osintsuite = makeSuite(LocationSearcherTestCase, 'test')
