@@ -50,7 +50,7 @@ class LocationSearcher(Observer):
             assert isinstance(seen_dict, dict)
             for bssid, ssid in seen_dict.items():
                 ap = {'macAddress': bssid,
-                      'signalStrength': -10,
+                      'signalStrength': -0,
                       'signalToNoiseRatio': 0
                      }
                 request = {'considerIp': 'false', 'wifiAccessPoints': [ap]}
