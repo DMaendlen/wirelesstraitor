@@ -1,12 +1,19 @@
 #!/usr/bin/python3
 
+from argparse import ArgumentParser
+
 from wirelesstraitor.display import CommandLineLocationDisplay
 from wirelesstraitor.osint import LocationSearcher
 from wirelesstraitor.sigint import ProbeRequestFinder, ProbeRequestParser
 
+argumentparser = ArgumentParser()
+argumentparser.add_argument('apikeyfile', help = 'Path to you apikey-file')
+
+apikeyfile = argumentparser.parse_args().apikeyfile
+
 proberequestfinder = ProbeRequestFinder()
 proberequestparser = ProbeRequestParser()
-locationsearcher = LocationSearcher()
+locationsearcher = LocationSearcher(apikeyfile)
 commandlinedisplay = CommandLineLocationDisplay()
 
 proberequestfinder.observable.register(proberequestparser)

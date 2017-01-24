@@ -6,7 +6,7 @@ from wirelesstraitor.mockup import PacketMockup
 if __name__ == "__main__":
     prfinder = ProbeRequestFinder()
     prparser = ProbeRequestParser()
-    locationsearcher = LocationSearcher()
+    locationsearcher = LocationSearcher('apikey')
     display = LocationDisplay()
 
     prfinder.register(prparser)

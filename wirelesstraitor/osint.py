@@ -9,16 +9,20 @@ class LocationSearcher(Observer):
         dict and looks up the geolocation of the bssids
     """
 
-    def __init__(self):
+    def __init__(self, apikeyfile = None):
         super(LocationSearcher, self).__init__()
         self.locations = defaultdict(dict)
         self.observable = Observable()
 
-        with open('apikey') as f:
-            key = f.read().rstrip()
+        try:
+            assert apikeyfile is not None
+        except AssertionError:
+            print('No API keyfile given. Trying default "apikey"')
+            apikeyfile = 'apikey'
 
-        assert key is not None
-        self.parameters = {'key': key}
+        with open(apikeyfile) as f:
+            self.parameters = {'key': f.read().rstrip()}
+
         self.url = 'https://www.googleapis.com/geolocation/v1/geolocate'
 
     def __getattr__(self, attr):
