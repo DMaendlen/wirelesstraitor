@@ -60,9 +60,8 @@ class ProbeRequestParser(Observer):
 
         assert pkt.info is not None
         assert pkt.addr3 is not None
-        if pkt.addr3 != '' and pkt.addr3.upper() != "FF:FF:FF:FF:FF:FF":
-            self.device_data[mac].append({pkt.addr3: pkt.info.decode('utf-8')})
-            assert self.device_data[mac] is not None
+        self.device_data[mac].append({pkt.addr3: pkt.info.decode('utf-8')})
+        assert self.device_data[mac] is not None
 
 
         return mac, self.device_data[mac]
